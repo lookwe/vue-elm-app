@@ -37,6 +37,7 @@
 </template>
 
 <script>
+    import { getAPIVerifyCode, login } from '../api/login'
     import proInput from '../components/input/InputGroup'
     export default {
         name: "Login",
@@ -48,20 +49,28 @@
                 },
                 phone: "",
                 verifyCode: "",
-                isClick: true,
                 errors:{
                     phone: "",
                     verifyCode: ""
                 }
             }
         },
-        components: {
-            proInput
-        },
+        components: { proInput },
         methods: {
             getVerifyCode() {
                 if(this.validatePhone()) {
-                    this.codeSuspend()
+                    this.codeSuspend();
+                    let params = {
+                        tpl_id: "175920",
+                        key: "d6aba21711d4c40eebfe00edd71b1a0a",
+                        tpl_value: '%23code%23%3D654654',
+                        phone: this.phone
+                    };
+                    getAPIVerifyCode(params).then(res => {
+                        console.log(res);
+                    }).catch(e => {
+                        console.log(e);
+                    })
                 }else {
                     console.log(222);
                 }
@@ -74,7 +83,7 @@
                         this.btnConfig = { disabled: false, btnTitle: "获取验证码" };
                         clearInterval(timer)
                     }else {
-                        this.btnConfig = { disabled: true, btnTitle:time+ "秒回获取" }
+                        this.btnConfig = { disabled: true, btnTitle:time+ "秒回获取" };
                         time--;
                     }
                 },1000)
@@ -94,9 +103,25 @@
                 }
             },
 
-
             handleLogin() {
-
+                this.errors = {};
+                login({phone: this.phone, code: this.verifyCode,}).then(res => {
+                    if (res.msg.includes('成功')) {
+                        localStorage.setItem('pro_toKen', 'true');
+                        this.$router.push("/");
+                    }
+                }).catch(e => {
+                    console.log(e);
+                    this.errors = {
+                        verifyCode: e.response.data.msg
+                    }
+                })
+            }
+        },
+        //计算监听里面的值  只要值不变则不执行里面代码 取上一次结果返回， 如果值发生变化则重新计算返回
+        computed: {
+            isClick() {
+                return (!this.phone || !this.verifyCode)
             }
         }
     }

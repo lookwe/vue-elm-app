@@ -7,7 +7,7 @@
                 :name="name"
                 :value="value"
                 :placeholder="placeholder"
-                @input="$emit('input',$event.target.value)"
+                @input="$emit('input', $event.target.value)"
             >
             <!-- 输入框后面的标签 -->
             <button v-if="btnConfig.btnTitle" :disabled="btnConfig.disabled" @click="$emit('inputBtnClick')">{{ btnConfig.btnTitle }}</button>

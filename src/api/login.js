@@ -1,12 +1,12 @@
 import  axios from '../utils/request'
 
-export function login() {
-    return axios.post('http://feifei.ink/api/login',{
-        user: {
-            phone: 17665090980,
-            code: 204241
-        }
-    });
+const api = {
+    getCode: '/api/posts/sms_send',
+    loginAPI: '/api/posts/sms_back'
+};
+
+export function login(params) {
+    return axios.post(api.loginAPI, params);
     /*return axios({
         url: 'http://feifei.ink/api/login',
         method: 'post',
@@ -17,10 +17,6 @@ export function login() {
     })*/
 }
 
-export function getVerifyCode() {
-    return axios.get('',{
-        params:{
-            phone: 17665090980
-        }
-    })
+export function getAPIVerifyCode(params) {
+    return axios.post(api.getCode, params);
 }
