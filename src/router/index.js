@@ -6,9 +6,31 @@ Vue.use(Router);
 const constRouterMap = [
   {
     path: '/',
-    name: 'home',
+    name: 'index',
+    redirect: '/home',
     //异步加载  一个组件生成一个js
-    component: resolve => require(['@/views/Home.vue'],resolve)
+    component: resolve => require(['@/views/index/index.vue'], resolve),
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/index/Home.vue')
+      },
+      {
+        path: '/order',
+        name: 'order',
+        component: () => import('@/views/index/Order.vue')
+      },
+      {
+        path: '/me',
+        name: 'me',
+        component: () => import('@/views/index/Me.vue')
+      },{
+        path: '/discover',
+        name: 'discover',
+        component: () => import('@/views/index/Discover.vue')
+      },
+    ]
   }, {
     path: '/login',
     name: 'login',
