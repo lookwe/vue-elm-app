@@ -1,5 +1,17 @@
 <template>
-  <div class="home">主页</div>
+  <div class="home">
+    <div class="header">
+      <div class="address_map" @click="$router.push({name: 'address',params: {city: city}})">
+        <i class="fa fa-map-marker"></i>
+        <span>{{address}}</span>
+        <i class="fa fa-sort-desc"></i>
+      </div>
+      <div class="shop_search">
+        <i class="fa fa-search"></i>
+        搜索商家 商家名称
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -7,13 +19,11 @@
 export default {
   name: 'home',
   data() {
-    return {
-
-    }
+    return {}
   },
   methods: {
     getLocation() {
-      const seif = this;
+      const self = this;
       AMap.plugin('AMap.Geolocation', function() {
         let geolocation = new AMap.Geolocation({
           // 是否使用高精度定位，默认：true
@@ -27,16 +37,21 @@ export default {
 
         function onComplete (data) {
           // data是具体的定位信息 精准的定位
+          console.log('精准的定位');
           console.log(data);
+          self.$store.dispatch("setLocation", data);
+          self.$store.dispatch("setAddress", data.formattedAddress)
         }
 
         function onError (data) {
           //获取不到是 通过IP查出定位
-          seif.getLngAndLatLocation()
+          self.getLngAndLatLocation()
         }
       })
     },
+    //IP定位
     getLngAndLatLocation() {
+      const self = this;
       AMap.plugin('AMap.CitySearch', function () {
         let citySearch = new AMap.CitySearch();
         citySearch.getLocalCity(function (status, result) {
@@ -52,11 +67,22 @@ export default {
               });
 
               let lnglat = result.rectangle.split(";")[0].split(",");
-
               geocoder.getAddress(lnglat, function(status, data) {
                 if (status === 'complete' && data.info === 'OK') {
                   // data为对应的地理位置详细信息
-                  console.log(data);
+                  console.log("IP定位");
+                  self.$store.dispatch("setLocation", {
+                    addressComponent: {
+                      city: result.city,
+                      province: result.province
+                    },
+                    formattedAddress: data.regeocode.formattedAddress
+                  });
+
+                  self.$store.dispatch(
+                          "setAddress",
+                          data.regeocode.formattedAddress
+                  );
                 }
               })
             })
@@ -66,6 +92,17 @@ export default {
     }
 
   },
+  computed: {
+    address() {
+      return this.$store.getters.address;
+    },
+    city() {
+      return (
+        this.$store.getters.location.addressComponent.city ||
+        this.$store.getters.location.addressComponent.province
+      );
+    }
+  },
   created() {
     this.getLocation()
   }
@@ -73,5 +110,37 @@ export default {
 </script>
 
 <style>
-
+  .home {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+  }
+  .header {
+    background-color: #009eef;
+    padding: 16px;
+  }
+  .header .address_map {
+    color: #fff;
+    font-weight: bold;
+  }
+  .address_map i {
+    margin: 0 3px;
+    font-size: 18px;
+  }
+  .address_map span {
+    display: inline-block;
+    width: 80%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .header .shop_search {
+    margin-top: 10px;
+    background-color: #fff;
+    padding: 10px 0;
+    border-radius: 4px;
+    text-align: center;
+    color: #aaa;
+  }
 </style>
