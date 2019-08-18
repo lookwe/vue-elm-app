@@ -20,7 +20,7 @@ const mutations = {
     },
     [types.SET_ADDRESS](state, address) {
         if (address) {
-            state.location = address
+            state.address = address
         }else {
             state.address = ""
         }

@@ -3,7 +3,7 @@
     <div class="header">
       <div class="address_map" @click="$router.push({name: 'address',params: {city: city}})">
         <i class="fa fa-map-marker"></i>
-        <span>{{address}}</span>
+        <span>{{ address }}</span>
         <i class="fa fa-sort-desc"></i>
       </div>
       <div class="shop_search">
@@ -40,7 +40,8 @@ export default {
           console.log('精准的定位');
           console.log(data);
           self.$store.dispatch("setLocation", data);
-          self.$store.dispatch("setAddress", data.formattedAddress)
+          self.$store.dispatch("setAddress", data.formattedAddress);
+          console.log(data.formattedAddress);
         }
 
         function onError (data) {
@@ -79,10 +80,8 @@ export default {
                     formattedAddress: data.regeocode.formattedAddress
                   });
 
-                  self.$store.dispatch(
-                          "setAddress",
-                          data.regeocode.formattedAddress
-                  );
+                  self.$store.dispatch("setAddress", ata.regeocode.formattedAddress);
+                  console.log(ata.regeocode.formattedAddress);
                 }
               })
             })

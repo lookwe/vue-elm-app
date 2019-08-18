@@ -1,12 +1,5 @@
 <template>
     <div class="index">
-        <div style="padding:10px 0;background-color: #4d90fe;height: 20px;position: absolute;top: 0;left: 0">
-            头部
-        </div>
-        <br>  <br>
-        <br>  <br>
-        <br>  <br>
-        <br>  <br>
         <router-view></router-view>
         <tab-ber :dataTabs="dataTabs"></tab-ber>
     </div>
