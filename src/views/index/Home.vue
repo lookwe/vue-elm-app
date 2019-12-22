@@ -1,11 +1,12 @@
 <template>
   <div class="home">
     <div class="header">
-      <div class="address_map" @click="$router.push({name: 'address',params: {city: city}})">
+      <div class="address_map" v-show="addressView" @click="$router.push({name: 'address'})">
         <i class="fa fa-map-marker"></i>
         <span>{{ address }}</span>
         <i class="fa fa-sort-desc"></i>
       </div>
+
       <div class="shop_search">
         <i class="fa fa-search"></i>
         搜索商家 商家名称
@@ -19,7 +20,10 @@
 export default {
   name: 'home',
   data() {
-    return {}
+    return {
+
+        addressView: false
+    }
   },
   methods: {
     getLocation() {
@@ -41,7 +45,6 @@ export default {
           console.log(data);
           self.$store.dispatch("setLocation", data);
           self.$store.dispatch("setAddress", data.formattedAddress);
-          console.log(data.formattedAddress);
         }
 
         function onError (data) {
@@ -79,9 +82,7 @@ export default {
                     },
                     formattedAddress: data.regeocode.formattedAddress
                   });
-
-                  self.$store.dispatch("setAddress", ata.regeocode.formattedAddress);
-                  console.log(ata.regeocode.formattedAddress);
+                  self.$store.dispatch("setAddress", data.regeocode.formattedAddress);
                 }
               })
             })
@@ -89,17 +90,26 @@ export default {
         })
       })
     }
-
   },
   computed: {
     address() {
       return this.$store.getters.address;
     },
     city() {
-      return (
-        this.$store.getters.location.addressComponent.city ||
-        this.$store.getters.location.addressComponent.province
-      );
+      return this.$store.getters.location.addressComponent.city || this.$store.getters.location.addressComponent.province || false;
+    },
+      gettersLocation() {
+        return this.$store.getters.location
+      }
+  },
+  watch: {
+    gettersLocation(val) {
+        let { addressComponent } = val || {};
+        if (addressComponent.city || addressComponent.province) {
+            this.addressView = true
+        }else {
+            this.addressView = false
+        }
     }
   },
   created() {

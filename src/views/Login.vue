@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="logo">
-            <img src="../assets/images/logo.jpg" alt="logo">
+            <img src="../assets/images/logo.png" alt="logo">
         </div>
 
         <pro-input
@@ -23,13 +23,12 @@
         <!-- 用户服务协议 -->
         <div class="login_des">
             <p>
-                新用户登录即自动注册，表示已同意
-                <span>《用户服务协议》</span>
+                新用户登录即自动注册，表示已同意<span>《用户服务协议》</span> 和 <span><a href="http://terms.alicdn.com/legal-agreement/terms/suit_bu1_other/suit_bu1_other201903051859_43484.html?spm=a2ogi.12119171.0.0">《隐私权政策》</a></span>
             </p>
         </div>
 
         <!-- 登录按钮 -->
-        <div class="login_btn">
+        <div class="login_btn text_group">
             <button :disabled="isClick" @click="handleLogin">登录</button>
         </div>
 
@@ -142,17 +141,18 @@
         width: 150px;
     }
     .text_group,
-    .login_des
-    {
+    .login_des{
         margin-top: 20px;
     }
     .login_des {
-        color: #aaa;
+        margin-top: 20px;
+        color: #999;
         line-height: 22px;
-        font-size: .9rem;
+        font-size: .88rem;
     }
-    .login_des span {
+    .login_des span,a {
         color: #4d90fe;
+        text-decoration:none
     }
     .login_btn button {
         width: 100%;

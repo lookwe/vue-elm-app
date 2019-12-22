@@ -1,4 +1,5 @@
 <template>
+    <!-- 登录之后首次展示页面 -->
     <div class="index">
         <router-view></router-view>
         <tab-ber :dataTabs="dataTabs"></tab-ber>

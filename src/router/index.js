@@ -19,16 +19,20 @@ const constRouterMap = [
       {
         path: '/order',
         name: 'order',
-        component: () => import('@/views/index/Order.vue')
+        component: () => import('@/views/order/Order.vue')
       },
       {
         path: '/me',
         name: 'me',
-        component: () => import('@/views/index/Me.vue')
+        component: () => import('@/views/mine/Me.vue')
       },{
         path: '/discover',
         name: 'discover',
-        component: () => import('@/views/index/Discover.vue')
+        component: () => import('@/views/discover/index.vue')
+      },{
+        path: '/address',
+        name: 'address',
+        component: () => import('@/views/address/index.vue')
       },
     ]
   }, {

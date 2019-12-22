@@ -9,5 +9,7 @@ export default new Vuex.Store({
   modules: {
     app
   },
+
+  //对外开发 可直接获取Vuex数据
   getters
 })
