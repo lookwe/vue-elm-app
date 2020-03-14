@@ -2,7 +2,7 @@ import router from './router'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
 
-const noRedirects = ['/login']; //不重定向路由
+const noRedirects = ['/login']; //不重定向路由路由表
 //https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#全局前置守卫
 /*to: Route: 即将要进入的目标 路由对象
 from: Route: 当前导航正要离开的路由

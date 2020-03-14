@@ -4,8 +4,10 @@ import router from '@/router/'
 import store from '@/store/'
 
 import '@/permission' // permission control
+import './custom'
 
 Vue.config.productionTip = false;
+
 
 new Vue({
   router,
