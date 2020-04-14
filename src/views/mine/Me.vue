@@ -28,13 +28,13 @@
         name: 'Me',
         filters: {
             toTest(val,agm,agm2) {
-                return val + agm + agm2
+                return val + agm +' | '+ agm2
             }
         },
         data() {
             return {
-                msg: "天泽无限少年",
-                text1: "huang",
+                msg: "后面是过滤器(多个参数)：",
+                text1: "单击我掉神器",
                 flay: false,
             }
         },

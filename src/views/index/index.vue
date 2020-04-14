@@ -1,7 +1,12 @@
 <template>
     <!-- 登录之后首次展示页面 -->
     <div class="index">
-        <router-view></router-view>
+        <div class="main">
+            <transition mode="out-in">
+                <router-view></router-view>
+            </transition>
+        </div>
+
         <tab-ber :dataTabs="dataTabs"></tab-ber>
     </div>
 </template>
@@ -29,4 +34,21 @@
     width: 100%;
     height: calc(100% - 45px);
 }
+.index>.main {
+    overflow: hidden;
+}
+
+.v-enter,
+.v-leave-to {
+    opacity: 0;
+    transform: translateX(140px);
+}
+
+.v-enter-active,
+.v-leave-active {
+    transition: all .5s ease;
+}
+
+
+
 </style>
