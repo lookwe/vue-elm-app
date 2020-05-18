@@ -24,7 +24,17 @@
 </template>
 
 <script>
+
     export default {
+        metaInfo: {
+            title: '这个是我的个人界面',
+            meta: [{ name: 'keyWords', content: 'My Example App HZF'}],
+            link: [{
+                rel: 'icon',
+                type: "image/png",
+                href: 'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/favicon/favicon-16x16_e1883cf.png',
+            }]
+        },
         name: 'Me',
         filters: {
             toTest(val,agm,agm2) {

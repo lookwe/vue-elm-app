@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+//不按需加载
+import login from '@/views/Login.vue'
+
 Vue.use(Router);
 
 const constRouterMap = [
@@ -14,6 +17,7 @@ const constRouterMap = [
       {
         path: '/home',
         name: 'home',
+        //懒加载方式 vue官方推荐
         component: () => import('@/views/index/Home.vue')
       },
       {
@@ -24,7 +28,7 @@ const constRouterMap = [
       {
         path: '/me',
         name: 'me',
-        component: () => import('@/views/mine/Me.vue')
+        component: resolve => require(['@/views/mine/Me.vue'], resolve)
       },{
         path: '/discover',
         name: 'discover',
@@ -38,9 +42,8 @@ const constRouterMap = [
   }, {
     path: '/login',
     name: 'login',
-    //懒加载 vue官方推荐
-    component:() => import('@/views/Login.vue')
-  }
+    component: login,
+  },
 ];
 
 const router = new Router({

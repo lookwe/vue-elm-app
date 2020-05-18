@@ -39,6 +39,15 @@
     import { getAPIVerifyCode, login } from '../api/login'
     import proInput from '../components/input/InputGroup'
     export default {
+        metaInfo: {
+            title: '这个是我的登录',
+            meta: [{ name: 'keyWords', content: 'My Example App HZF'}],
+            link: [{
+                rel: 'icon',
+                type: "image/png",
+                href: 'https://fanyi-cdn.cdn.bcebos.com/static/translation/img/favicon/favicon-16x16_e1883cf.png',
+            }]
+        },
         name: "Login",
         data() {
             return {
@@ -67,6 +76,7 @@
                     };
                     getAPIVerifyCode(params).then(res => {
                         console.log(res);
+                        alert(res.msg)
                     }).catch(e => {
                         console.log(e);
                     })
